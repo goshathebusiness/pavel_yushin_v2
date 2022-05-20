@@ -45,7 +45,7 @@ async def on_message(message):
                 else:
                     pass
         message.content
-        output=open("D:/bot lib/text/raw.txt", mode="a", encoding="utf-8")
+        output=open("D:/bot lib/text/data_raw.txt", mode="a", encoding="utf-8")
         output.writelines(message.content+"\n")
         output.close
         

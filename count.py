@@ -5,7 +5,7 @@ nongrata={',':'','.':'','—':'','!':'','?':'','<':'','>':'','«':'','»':'','('
 
 def a1():
     result=[]
-    f1=open("D:/bot lib/text/raw.txt", mode="r", encoding="utf-8")
+    f1=open("D:/bot lib/text/data_raw.txt", mode="r", encoding="utf-8")
     raw=f1.read()
     f1.close()
     main=raw.split()
@@ -14,7 +14,7 @@ def a1():
             i=i.replace(j,k)
             i=i.lower()
         result.append(i)
-    f2=open("D:/bot lib/text/cooked.txt", mode="w", encoding="utf-8")
+    f2=open("D:/bot lib/text/data_cooked.txt", mode="w", encoding="utf-8")
     result.sort()
     result_set=set(result)
     for i in result_set:

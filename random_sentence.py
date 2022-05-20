@@ -5,8 +5,8 @@ def count_lines(filename, chunk_size=1<<13):
         return sum(chunk.count('\n')
                    for chunk in iter(lambda: file.read(chunk_size), ''))
 
-f1=open("D:/bot lib/text/cooked.txt", mode="r", encoding="utf-8")
-lines=count_lines("D:/bot lib/text/cooked.txt")
+f1=open("D:/bot lib/text/data_cooked.txt", mode="r", encoding="utf-8")
+lines=count_lines("D:/bot lib/text/data_cooked.txt")
 data=[]
 for i in range(1,lines):
     string_raw=f1.readline()
