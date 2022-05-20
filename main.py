@@ -38,14 +38,16 @@ async def on_message(message):
     if (message.author.bot):
         pass
     else:
-        await ch.send('Файл обнаружен')
         for picture in message.attachments:
             for i in picture_format:
                 if i in picture.filename:
-                    await picture.save(f"D:/bot lib/{picture.filename}")
-                    await ch.send('Файл скачан')
+                    await picture.save(f"D:/bot lib/pictures/{picture.filename}")
                 else:
                     pass
+        message.content
+        output=open("D:/bot lib/text/raw.txt", mode="a", encoding="utf-8")
+        output.writelines(message.content+"\n")
+        output.close
         
 
 bot.run(settings['token'])
