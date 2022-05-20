@@ -22,16 +22,36 @@ async def randompicture(ctx):
     try:
         await ctx.message.delete()
     except:
-        await ctx.send(f'Нет нужных полномочий')
+        await ctx.send('Нет нужных полномочий')
     picturelist=os.listdir('D:/pictures')
     picname=picturelist[random.randint(0,len(picturelist))]
     author=ctx.message.author
     picpath='D:/pictures/'+picname
     await ctx.send(f'{author.mention}, название этого файла {picname}', file=discord.File(picpath))
 
-@bot.event
-async def on_message(ctx):
-    if ctx.message.contai
+picture_format=['.png','.jpg','jpeg','bmp']
 
+@bot.event
+async def on_message(message):
+    await bot.process_commands(message)
+    ch=message.channel
+    if (message.author.bot):
+        pass
+    else:
+        await ch.send('Файл обнаружен')
+        for picture in message.attachments:
+            for i in picture_format:
+                if i in picture.filename:
+                    await picture.save(f"D:/bot lib/{picture.filename}")
+                    await ch.send('Файл скачан')
+                else:
+                    pass
+        
 
 bot.run(settings['token'])
+
+#        await msg.send('Файл обнаружен')
+#        for picture in msg.attachments:
+#            await picture.save("D:\bot lib")
+#            print('saved', picture)
+#            await msg.send('Файл скачан')
