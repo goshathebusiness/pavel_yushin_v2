@@ -8,8 +8,9 @@ f1.close()
 main=raw.split()
 for i in main:
     for j, k in nongrata.items():
-        i=i.replace(j,k)
-        i=i.lower()
+        #i=i.replace(j,k)
+        #i=i.lower()
+        pass
     main.pop(0)
     main.append(i)
 f2=open("D:/bot lib/text/chains_raw.txt", mode="w", encoding="utf-8")

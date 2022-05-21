@@ -1,9 +1,12 @@
 
 
+from distutils.log import error
+
+
 data=[]
 
 def count_lines(filename, chunk_size=1<<13):
-    with open(filename) as file:
+    with open(filename, errors='ignore') as file:
         return sum(chunk.count('\n')
                    for chunk in iter(lambda: file.read(chunk_size), ''))
 

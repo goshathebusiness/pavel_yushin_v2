@@ -1,7 +1,7 @@
 import random
 
 def count_lines(filename, chunk_size=1<<13):
-    with open(filename) as file:
+    with open(filename, errors='ignore') as file:
         return sum(chunk.count('\n')
                    for chunk in iter(lambda: file.read(chunk_size), ''))
 
@@ -17,29 +17,47 @@ for i in range(1,lines):
     data.append(string_final)
         
 sentence=''
-sentence_lenght=10
+pre_sentence=[]
+max_sentence_lenght=20
+sentence_lenght=random.randint(1,max_sentence_lenght)
+sentence_splitted=[]
 
 first_word_base=data[random.randint(0,len(data))]
 first_word=first_word_base[first_word_base.find('$')+1:]
 sentence=sentence+first_word
-
+next_word=['']
+count=0
 first_word_splitted=first_word.split()
 try:
-    next_word=first_word_splitted[1]
+    next_word[0]=first_word_splitted[1]
 except:
-    next_word=first_word_splitted[0]
-while len(sentence.split())<sentence_lenght: #ДОБАВИТЬ СИСТЕМУ РАНДОМА НЕКСТ СЛОВА, ТОГДА РАЗМЕР ЕБАНУТЫЙ ДОЛЖЕН ПОФИКСИТСЯ
-#for n in range(0,sentence_lenght):
+    next_word[0]=first_word_splitted[0]
+
+while len(sentence_splitted)<sentence_lenght: #ДОБАВИТЬ СИСТЕМУ РАНДОМА НЕКСТ СЛОВА, ТОГДА РАЗМЕР ЕБАНУТЫЙ ДОЛЖЕН ПОФИКСИТСЯ
+#for n in range(0,5):
+    pre_sentence.clear()
     for i in data:
-        i=i[i.find('$')+1:]
-        i_splitted=i.split()
-        if i_splitted[0]==next_word:
-            sentence=sentence+i_splitted[0]+' '
+        
+        i_str=i[i.find('$')+1:]
+        i_splitted=i_str.split()
+        i_num=i[:i.find('$')]
+        #print(i_splitted)
+        if i_splitted[1]==next_word[0]:
+            print(i_splitted,next_word)
+            print(i_splitted[0]==next_word[0])
+            pre_sentence.append(i_splitted[0])
             try:
-                next_word=i_splitted[1]
+                next_word[0]=i_splitted[1]
             except:
-                next_word=i_splitted[0]
+                next_word[0]=i_splitted[0] #сделать рандомайзер при повторе
         else:
             pass
+    count=count+int(i_num)
+    print(pre_sentence)
+    sentence=sentence+pre_sentence[random.randint(0,len(pre_sentence))-1]+' '
+    sentence_splitted=sentence.split()
 print(sentence)
-print(len(sentence.split()))
+print(count,'adfafd')
+print(len(sentence_splitted))
+#print(pre_sentence)
+print(len(pre_sentence))

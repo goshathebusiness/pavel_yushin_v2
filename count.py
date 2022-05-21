@@ -11,8 +11,9 @@ def a1():
     main=raw.split()
     for i in main:
         for j, k in nongrata.items():
-            i=i.replace(j,k)
-            i=i.lower()
+            #i=i.replace(j,k)
+            #i=i.lower()
+            pass
         result.append(i)
     f2=open("D:/bot lib/text/data_cooked.txt", mode="w", encoding="utf-8")
     result.sort()
