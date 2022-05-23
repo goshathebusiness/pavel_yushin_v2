@@ -18,16 +18,21 @@ for i in range(1,lines):
         
 sentence=''
 pre_sentence=[]
-max_sentence_lenght=20
+max_sentence_lenght=15
 sentence_lenght=random.randint(1,max_sentence_lenght)
 sentence_splitted=[]
 
 first_word_base=data[random.randint(0,len(data))]
 first_word=first_word_base[first_word_base.find('$')+1:]
+if first_word=='-':
+    first_word_base=data[random.randint(0,len(data))]
+    first_word=first_word_base[first_word_base.find('$')+1:]
+first_word=first_word[0].upper()+first_word[1:]
 sentence=sentence+first_word
 next_word=['']
 count=0
 first_word_splitted=first_word.split()
+
 try:
     next_word[0]=first_word_splitted[1]
 except:
@@ -37,14 +42,13 @@ while len(sentence_splitted)<sentence_lenght: #ДОБАВИТЬ СИСТЕМУ �
 #for n in range(0,5):
     pre_sentence.clear()
     for i in data:
-        
         i_str=i[i.find('$')+1:]
         i_splitted=i_str.split()
         i_num=i[:i.find('$')]
         #print(i_splitted)
-        if i_splitted[1]==next_word[0]:
-            print(i_splitted,next_word)
-            print(i_splitted[0]==next_word[0])
+        if i_splitted[0]==next_word[0]:
+            #print(i_splitted,next_word)
+            #print(i_splitted[1]==next_word[0])
             pre_sentence.append(i_splitted[0])
             try:
                 next_word[0]=i_splitted[1]
@@ -53,11 +57,12 @@ while len(sentence_splitted)<sentence_lenght: #ДОБАВИТЬ СИСТЕМУ �
         else:
             pass
     count=count+int(i_num)
-    print(pre_sentence)
-    sentence=sentence+pre_sentence[random.randint(0,len(pre_sentence))-1]+' '
+    sentence_candidat=pre_sentence[random.randint(0,len(pre_sentence))-1]
+    sentence_candidat=sentence_candidat[0].lower()+sentence_candidat[1:]
+    sentence=sentence+sentence_candidat+' '
     sentence_splitted=sentence.split()
 print(sentence)
-print(count,'adfafd')
-print(len(sentence_splitted))
+#print(count,'adfafd')
+#print(len(sentence_splitted))
 #print(pre_sentence)
-print(len(pre_sentence))
+#print(len(pre_sentence)) 

@@ -1,4 +1,5 @@
 nongrata={',':'','.':'','—':'','!':'','?':'','<':'','>':'','«':'','»':'','(':'',')':'','[':'',']':'','{':'','}':'','…':'',' ':''}
+nongrata_lite={'—':'','<':'','>':'','«':'','»':'','(':'',')':'','[':'',']':'','{':'','}':'','…':'...',' ':'','"':''}
 result=[]
 chains=[]
 
@@ -7,9 +8,9 @@ raw=f1.read()
 f1.close()
 main=raw.split()
 for i in main:
-    for j, k in nongrata.items():
-        #i=i.replace(j,k)
-        #i=i.lower()
+    for j, k in nongrata_lite.items():
+        i=i.replace(j,k)
+        i=i.lower()
         pass
     main.pop(0)
     main.append(i)

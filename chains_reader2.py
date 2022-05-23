@@ -1,8 +1,3 @@
-
-
-from distutils.log import error
-
-
 data=[]
 
 def count_lines(filename, chunk_size=1<<13):
