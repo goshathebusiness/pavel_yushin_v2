@@ -1,0 +1,1 @@
+pictureFormat=['.png','.jpg','jpeg','bmp']

@@ -3,23 +3,28 @@ import textwrap
 import os
 import random
 
-def randomPicture():
-    pictureList=os.listdir('pictures')
+def randomPicture(serverId):
+    pictureList=os.listdir(f'data/{serverId}/pictures')
     try:
         pictureList.remove('temp.png')
     except:
         pass
     picName=pictureList[random.randint(0,len(pictureList)-1)]
-    path=f'pictures/{picName}'
-    return path
+    basewidth = 600
+    img = Image.open(f'data/{serverId}/pictures/{picName}')
+    wpercent = (basewidth/float(img.size[0]))
+    hsize = int((float(img.size[1])*float(wpercent)))
+    img = img.resize((basewidth,hsize), Image.ANTIALIAS)
+    img.save(f'data/{serverId}/pictures/temp.png')
+    return f'data/{serverId}/pictures/temp.png'
 
-def imageCreate(text, path):
+def imageCreate(text, path, serverId):
     img=Image.open(path)
     imgWidth, imgHeight=(img.width, img.height)
     fontSize=round(img.height/10)
-    font=ImageFont.truetype('fonts/impactRegular.ttf', size=fontSize)
+    font=ImageFont.truetype('fonts/impact.ttf', size=fontSize)
 
-    textWrapped=textwrap.wrap(text, width=round(imgWidth/(fontSize/2)+5))
+    textWrapped=textwrap.wrap(text, width=round(imgWidth/(fontSize/2)-1))
 
     draw=ImageDraw.Draw(img)
     textWidth, textHeight=draw.textsize(text, font)
@@ -31,15 +36,18 @@ def imageCreate(text, path):
 
     for line in textWrapped:
         textWidth,textHeight=draw.textsize(line, font=font)
-        draw.text((((imgWidth-textWidth)/2)-1, currentHeight), text, font=font, fill='#000000')
-        draw.text((((imgWidth-textWidth)/2)+1, currentHeight), text, font=font, fill='#000000')
-        draw.text(((imgWidth-textWidth)/2, currentHeight-1), text, font=font, fill='#000000')
-        draw.text(((imgWidth-textWidth)/2, currentHeight+1), text, font=font, fill='#000000')
+        draw.text((((imgWidth-textWidth)/2)-1, currentHeight-1),line, font=font, fill=('#000000'))
+        draw.text((((imgWidth-textWidth)/2)+1, currentHeight-1),line, font=font, fill=('#000000'))
+        draw.text((((imgWidth-textWidth)/2)-1, currentHeight-1),line, font=font, fill=('#000000'))
+        draw.text((((imgWidth-textWidth)/2)+1, currentHeight+1),line, font=font, fill=('#000000'))
         draw.text(((imgWidth-textWidth)/2, currentHeight),line,font=font, fill=('#FFFFFF'))
         
         currentHeight+=textHeight
 
-    img.save('pictures/temp.png')
+    img.save(f'data/{serverId}/pictures/temp.png')
+
+def randomImageCreate(text,serverId):
+    imageCreate(text, randomPicture(serverId), serverId)
 
 if __name__=='__main__':
-    imageCreate('aye basota', randomPicture())
+    imageCreate('aye basota фафафафа афаф уу у фее', randomPicture())

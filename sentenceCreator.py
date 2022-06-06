@@ -1,6 +1,6 @@
 import random
 
-def createSentence():
+def sentenceCreate(sentenceMaxLenghtWanted, serverId):
     chains=[]
 
     class Chain():
@@ -17,7 +17,7 @@ def createSentence():
         def info(self):
             print(f'Цепь: {self.word} {self.nextWord} {self.nextNextWord}. Встречается в тексте {self.num} раз')
 
-    with open("text/data_raw.txt", mode="r", encoding="utf-8") as file:
+    with open(f"data/{serverId}/data.txt", mode="r", encoding="utf-8") as file:
         data=file.read()
     data=data.split()
     dataNew=[]
@@ -47,8 +47,9 @@ def createSentence():
 
     buffer=[]
     bufferSecond=[]
-    sentenceMaxLenghtWanted=32
     sentenceLenght=random.randint(1,sentenceMaxLenghtWanted)
+    if sentenceLenght>len(data):
+        sentenceLenght=len(data)-1
     chainSingle=chains[random.randint(0,len(chains)-1)]
     while chainSingle.word=='-' or chainSingle.word=='.' or chainSingle.word== ',' or chainSingle.word=='+' or chainSingle.word=='/' or chainSingle.word=='*' or chainSingle.word=='?':
         chainSingle=chains[random.randint(0,len(chains)-1)]
@@ -92,4 +93,4 @@ def createSentence():
     return sentence
 
 if __name__=='__main__':
-    createSentence()
+    createSentence(32)
